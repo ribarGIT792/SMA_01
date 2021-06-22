@@ -8,32 +8,30 @@ clc,close all
 
 % f='2*x.*cos(2*x)-(x+1).^2'  % funkcijos simboline israiska
 % f='-2*x.^2+2'
-f='2*x.*sin(2*x)-(x+1).^2/10'
+f='2*x.*sin(2*x)-(x+1).^2+1'
 % f='x.^2'       % tokiai funkcijai siais metodais saknu nerasime
 
 % range=[-10,10] % parenkame saknu atskyrimo intervala 
 % range=[-2.2,1.8]; 
-range=[-3.5,-1];
+range=[-2.5,-1];
 eps=1e-9;  % parenkame tikslumo reiksme 
 nitmax=100;% parenkame didziausia leistina iteraciju skaiciu
 method='bisection';  % parenkame sprendimo metoda
-% method='chords';  
+% method='chords';
 
 
 % braizomas funkcijos grafikas
 npoints=1000; x=range(1): (range(2)-range(1))/(npoints-1) :range(2);  
 figure(1); grid on; hold on;
-
+str=[f,'=0;   Method of ',method]; title(str);
 plot(x,eval(f),'r-');
 plot(range,[0 0],'b-');
 
 %------------------------   SPRENDIMAS  -----------------------------------
 
 xn=range(1);xn1=range(2);prec=1;
-
-nit=0;err=0; 
+nit=0;err=0;
 while prec > eps
-    str=[f,'=0;   Method of ',method,' ',sprintf('prec= %g',prec)]; title(str);
     nit=nit+1;
     if nit > nitmax, fprintf('Virsytas leistinas iteraciju skaicius');err=1;break;end
     plot(xn,0,'mp','MarkerSize',12);h = findobj(gca,'Type','line');h1=h(1); % paskutinio grafinio objekto valdiklis irasomas handle masyvo priekyje
@@ -46,23 +44,24 @@ while prec > eps
         elseif strcmp(method,'chords')   % stygu metodas 
             x=xn;fxn=eval(f);x=xn1;fxn1=eval(f);
             k=abs(fxn/fxn1);xmid=(xn+k*xn1)/(1+k);
-            plot(xmid,0,'gs','MarkerSize',12);plot([xn,xn1],[fxn,fxn1],'g-');h = findobj(gca,'Type','line');h3=h(1:2);
+            plot(xmid,0,'gs','MarkerSize',12);plot([xn,xn1],[fxn,fxn1],'k-');h = findobj(gca,'Type','line');h3=h(1:2);
         else, fprintf('neaprasytas metodas \n');
         end
     x=xmid;fxmid=eval(f);
+    if nit == 1, pause, end
     
-    if 0  % jeigu pradzioje tikriname kairi taska
-        x=xn;fxn=eval(f);
-        if sign(fxmid) == sign(fxn), xn=xmid;  else, xn1=xmid; end
-    else 
-        x=xn1;fxn1=eval(f);
-        if sign(fxmid) == sign(fxn1), xn1=xmid;  else, xn=xmid; end
+    % jeigu pradzioje tikriname kairi taska
+    x=xn;fxn=eval(f);
+    if sign(fxmid) == sign(fxn), xn=xmid;
+    else, xn1=xmid;
     end
+    
 %     x=xn1;fxn1=eval(f);
 %     if sign(fxmid) == sign(fxn1), xn1=xmid;
 %     else, xn=xmid;
 %     end
 %         
+    pause(1)
     pause
     delete(h1);delete(h2);delete(h3);
     
@@ -74,7 +73,7 @@ if err == 0, fprintf(1,'\n tikslumas pasiektas, saknis xmid=%g\n\n',xmid);
 else, fprintf(1,'\n tikslumas nepasiektas, paskutine saknies reiksme  xmid=%g\n\n',xmid);
 end
 
-return 
+
 % ................................................................................
 disp('.... Patikriname saknies reiksme, naudodami MATLAB funkcija fsolve: ....')
 fprintf('\n')
@@ -82,7 +81,7 @@ fprintf('\n')
     % fsolve iejimo pirmu parametru gali buti simboliu masyvas(char), kuriame irasyta lygties funkcijos israiska. 
     % Lygties funkcijos argumentas yra simbolis x. 
     % Antras parametras yra x reiksme. x gali buti vektorius.
-   
+    
  x0=-10; sprendinys = fsolve(char(f),x0); fprintf(1,'\npradinis artinys  x0=%g,  sprendinys=%g',x0,sprendinys);
  x0=5;   sprendinys = fsolve(char(f),x0); fprintf(1,'\npradinis artinys  x0=%g,  sprendinys=%g',x0,sprendinys);
  fprintf(1,'\n');

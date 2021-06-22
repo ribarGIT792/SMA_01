@@ -25,7 +25,7 @@ alpha=10 % parenkame daugiklio reiksme
 % alpha=2
 % alpha=-10000
 % alpha=-7
-% alpha=-2  
+% alpha=-2
 % alpha=-10
 
 % braizomas funkcijos grafikas
@@ -50,7 +50,7 @@ while prec > eps  % iteracijos
     else, fprintf('neaprasytas metodas \n');
     end
      
-     pause(2)
+        pause
         
     prec=abs(f(xn));
     fprintf(1,'iteracija %d  x= %g  prec= %g \n',nit,xn,prec);
@@ -63,7 +63,7 @@ end
 
 
 function fff=f(x)
-    fff= 1.5*x.^2-1 +0.1*sin(100*x);
+    fff= 1.5*x.^2-1 % +0.1*sin(100*x);
 %     fff=64*x.^4-576*x.^3+10*x.^2+9*x;
 return
 end

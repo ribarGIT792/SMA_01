@@ -9,7 +9,7 @@ clc,close all
 % range=[-10,10] % parenkame vaizdavimo intervala
 range=[-2,1]
 
-% x0=-1.3    %  parenkame pradini artini
+% x0=-1.3    % parenkame pradini artini
 x0=0
 % x0=0.0001
 eps=1e-4   % parenkame sprendinio tikslumo reiksme
@@ -18,21 +18,18 @@ nitmax=1000 % parenkame didziausia leistina iteraciju skaiciu
 
 method='simple_iteration'  % parenkame metoda
 
-alpha=10 % parenkame daugiklio reiksme
+alpha=1 % parenkame daugiklio reiksme
 % alpha=-1
 % alpha=-100
 % alpha=-7
-% alpha=-2
+alpha=-2
 % alpha=-10
 
 % braizomas funkcijos grafikas
 npoints=1000; x=range(1): (range(2)-range(1))/(npoints-1) :range(2);  fff=f(x);
 figure(1); grid on; hold on; axis equal;
-plot(x,fff,'r-');
-figure(2); grid on; hold on; axis equal;
 plot(x,fff/alpha+x,'r-');
 plot(range,range,'b-');
-pause
 
 %------------------------   SPRENDIMAS  -----------------------------------
 
@@ -43,19 +40,18 @@ while prec > eps  % iteracijos
 
     if strcmp(method,'simple_iteration')
             fn=f(xn)/alpha+xn;
-            plot([xn,xn,fn],[xn,fn,fn],'k-');
+            plot([xn,xn,fn],[xn,fn,fn],'g-');
             plot(xn,fn,'mp');
             xn=fn;
     else, fprintf('neaprasytas metodas \n');
     end
      
-        pause(2)
+        pause
         
     prec=abs(f(xn));
     fprintf(1,'iteracija %d  x= %g  prec= %g \n',nit,xn,prec);
-    title(sprintf('iteracija %d  x= %g  prec= %g \n',nit,xn,prec));
 end
-plot(xn,fn,'k*');plot(xn,fn,'ko');title()
+plot(xn,fn,'k*');plot(xn,fn,'ko');
 
 fprintf(1,'\n tikslumas pasiektas, saknis xmid=%g\n\n',xn);
 
@@ -63,7 +59,7 @@ end
 
 
 function fff=f(x)
-    fff=1.5*x.^2-1+0.1*sin(100*x);
+    fff=1.5*x.^2-1; %+0.1*sin(100*x);
 %     fff=64*x.^4-576*x.^3+10*x.^2+9*x;
 return
 end

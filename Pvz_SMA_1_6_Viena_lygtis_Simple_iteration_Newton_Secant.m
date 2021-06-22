@@ -10,14 +10,14 @@ clc, close all
 syms f x 
 
 % f=(0.5*x.^2-1)*1 % parenkame funkcija
-f=1.5.*x^2-1
-f=atan(x)
-% f=sin(x)^2-0.2
+% f=1.5.*x^2-1
+f=atan(x);
+% f=sin(x)
 % f=-0.5*x
 % f=1.5.*x^2
 
 x0=-1.8; % parenkame pradini artini
-x01=-1.9;  % kirstiniu metodui parenkame antra pradini artini  
+x01=-1.1;  % kirstiniu metodui parenkame antra pradini artini  
 deltax=0.01; % parenkame pradine zingsnio reiksme (reikalinga tik kirstiniu metodui)
 nitmax=100; % parenkame didziausia leistina iteraciju skaiciu
 if x0 ~= 0, range=3*[-abs(x0),abs(x0)]; % parenkame intervala vaizdavimui
@@ -25,10 +25,10 @@ else, range=[-3,0];
 end
 
 eps=1e-9;  % Parenkame tiksluma
-% 
+
 method='simple iterations'; alpha=-1;  %-1
-method='Newton'; beta=0.5 ; %0.5
-method='secants'; 
+method='Newton'; beta=1; %0.5
+% method='secants'; 
 
 if strcmp(method,'Newton'),df=diff(f,x), end  % Taikant Niutono metoda, reiks ne tik funkcijos, 
                                               % taciau ir jos isvestines israiskos

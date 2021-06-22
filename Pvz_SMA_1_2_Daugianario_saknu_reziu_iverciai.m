@@ -16,7 +16,6 @@ switch option
 %         saknys=[2 1]
 %         saknys=[-5 2 1 7]
 %         saknys=[-5 -3 -2 -1  1 2 3 4 6 7]
-saknys=[-2 3 2 1]
         f=1;
         for i=1:numel(saknys), f=f*(x-saknys(i)); end 
         f=expand(f)  % panariui isskleistas daugianaris
@@ -69,8 +68,8 @@ R=max(abs(CF_value(2:end)))/CF_value(1)+1  % taikoma grubaus ivercio formule
 % grafinis funkcijos, saknu ir grubaus ivercio intervalo pavaizdavimas:
 t=-R:R/500:R;
 figure(1);grid on;hold on
-plot(t,fnk(CF_value,t),'g-')
-if option == 1, plot(saknys,0*saknys,'go');end
+plot(t,fnk(CF_value,t),'k-')
+if option == 1, plot(saknys,0*saknys,'ko');end
 plot([-R,R],[0 0],'r*')
 
 

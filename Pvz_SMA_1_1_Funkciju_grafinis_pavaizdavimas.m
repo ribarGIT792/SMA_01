@@ -6,7 +6,7 @@ clc, close all
 syms x f
 option=1;  % 1 - daugianaris, sugeneruojamas pagal duotas realias saknis;
            % 2 - argumento x funkcija, uzrasoma simboline israiska
-   %%%%%%%%%%   %%%%%%%%%%%%       
+           
 switch option           
     case 1   % daugianaris
 %         roots=[ -1 ,0 ,2,  10]  % duotos saknys
